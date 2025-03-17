@@ -14,9 +14,16 @@ spec:
     http:
       paths:
       - path: /
-        pathType: Prefix
+        pathType: Exact
         backend:
           service:
             name: a-podinfo-dev
+            port:
+              number: 80
+      - path: /api/info
+        pathType: Prefix
+        backend:
+          service:
+            name: a-podinfo-prod
             port:
               number: 80

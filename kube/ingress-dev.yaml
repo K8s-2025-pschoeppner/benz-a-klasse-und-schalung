@@ -2,18 +2,21 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: podinfo-ingress
+  name: podinfo-ingress-dev
   namespace: a-benz-schalung
+  annotations:
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "20"
 spec:
   ingressClassName: nginx
   rules:
-  - host: a-team.k8s.schoeppi5.de
+  - host: pod-info.k8s.schoeppi5.de
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: a-podinfo
+            name: a-podinfo-dev
             port:
               number: 80

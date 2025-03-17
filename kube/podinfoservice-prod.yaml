@@ -1,0 +1,16 @@
+# Service für a-podinfo
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: a-benz-schalung
+  name: a-podinfo-prod
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 9898
+    protocol: TCP
+    name: http
+  selector:
+    app: a-podinfo-prod
+    version: prod

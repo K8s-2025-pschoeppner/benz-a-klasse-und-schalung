@@ -3,9 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: a-benz-schalung
-  name: a-podinfo
-  labels:
-    app: a-podinfo
+  name: a-podinfo-dev
 spec:
   type: ClusterIP
   ports:
@@ -14,4 +12,5 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: a-podinfo
+    app: a-podinfo-dev
+    version: dev

@@ -1,0 +1,19 @@
+# Ingress-Ressource für Podinfo
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: podinfo-ingress-prod
+  namespace: a-benz-schalung
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: pod-info.k8s.schoeppi5.de
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: a-podinfo-prod
+            port:
+              number: 80

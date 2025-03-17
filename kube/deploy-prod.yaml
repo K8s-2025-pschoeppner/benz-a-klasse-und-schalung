@@ -1,8 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: a-podinfo
+  name: a-podinfo-prod
   namespace: a-benz-schalung
+  labels:
+    app: a-podinfo-prod
+    version: prod
 spec:
   replicas: 5
   strategy:
@@ -12,11 +15,13 @@ spec:
       maxSurge: 1
   selector:
     matchLabels:
-      app: a-podinfo
+      app: a-podinfo-prod
+      version: prod
   template:
     metadata:
       labels:
-        app: a-podinfo
+        app: a-podinfo-prod
+        version: prod
     spec:
       topologySpreadConstraints:
       - maxSkew: 1
@@ -24,7 +29,7 @@ spec:
         whenUnsatisfiable: ScheduleAnyway
         labelSelector:
           matchLabels:
-            app: a-podinfo
+            app: a-podinfo-prod
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -35,7 +40,7 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - a-podinfo
+                  - a-podinfo-prod
               topologyKey: kubernetes.io/hostname
       containers:
       - name: app-container

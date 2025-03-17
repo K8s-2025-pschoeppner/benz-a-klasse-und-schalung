@@ -1,0 +1,10 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: poddisruption_prod
+  namespace: a-benz-schalung
+spec:
+  minAvailable: 3
+  selector:
+    matchLabels:
+      app: a-podinfo-prod

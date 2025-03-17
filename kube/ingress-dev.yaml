@@ -6,9 +6,15 @@ metadata:
   namespace: a-benz-schalung
   annotations:
     nginx.ingress.kubernetes.io/canary: "true"
-    nginx.ingress.kubernetes.io/canary-weight: "20"
+    nginx.ingress.kubernetes.io/canary-weight: "50"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"  # Uses cert-manager to generate certificates
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - podinfo.k8s.schoeppi5.de
+    secretName: letsencrypt-staging-key
   rules:
   - host: podinfo.k8s.schoeppi5.de
     http:

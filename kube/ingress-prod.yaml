@@ -4,8 +4,15 @@ kind: Ingress
 metadata:
   name: podinfo-ingress-prod
   namespace: a-benz-schalung
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"  # Uses cert-manager to generate certificates
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - podinfo.k8s.schoeppi5.de
+    secretName: letsencrypt-staging-key
   rules:
   - host: podinfo.k8s.schoeppi5.de
     http:
